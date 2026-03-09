@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en" x-data="app()" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wondiwoi Tour — Explore Authentic Papua</title>
+  <meta name="description" content="Wondiwoi Tour offers authentic wildlife adventures, cultural encounters, and pristine natural beauty in Papua, Indonesia.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="./logo.svg">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: 'var(--color-primary-50)',
+              100: 'var(--color-primary-100)',
+              200: 'var(--color-primary-200)',
+              300: 'var(--color-primary-300)',
+              400: 'var(--color-primary-400)',
+              500: 'var(--color-primary-500)',
+              600: 'var(--color-primary-600)',
+              700: 'var(--color-primary-700)',
+              800: 'var(--color-primary-800)',
+              900: 'var(--color-primary-900)',
+            },
+            accent: {
+              50: 'var(--color-accent-50)',
+              100: 'var(--color-accent-100)',
+              200: 'var(--color-accent-200)',
+              300: 'var(--color-accent-300)',
+              400: 'var(--color-accent-400)',
+              500: 'var(--color-accent-500)',
+              600: 'var(--color-accent-600)',
+              700: 'var(--color-accent-700)',
+              800: 'var(--color-accent-800)',
+              900: 'var(--color-accent-900)',
+            },
+            neutral: {
+              50: 'var(--color-neutral-50)',
+              100: 'var(--color-neutral-100)',
+              200: 'var(--color-neutral-200)',
+              300: 'var(--color-neutral-300)',
+              400: 'var(--color-neutral-400)',
+              500: 'var(--color-neutral-500)',
+              600: 'var(--color-neutral-600)',
+              700: 'var(--color-neutral-700)',
+              800: 'var(--color-neutral-800)',
+              900: 'var(--color-neutral-900)',
+            },
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          },
+          fontSize: {
+            xs: ['1rem', { lineHeight: '1.5' }],
+            sm: ['1rem', { lineHeight: '1.5' }],
+            base: ['1rem', { lineHeight: '1.6' }],
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    :root {
+      /* === PRIMARY (Green - Nature) === */
+      --color-primary-50: #f0fdf4;
+      --color-primary-100: #dcfce7;
+      --color-primary-200: #bbf7d0;
+      --color-primary-300: #86efac;
+      --color-primary-400: #4ade80;
+      --color-primary-500: #22c55e;
+      --color-primary-600: #16a34a;
+      --color-primary-700: #15803d;
+      --color-primary-800: #166534;
+      --color-primary-900: #14532d;
+
+      /* === ACCENT (Teal - Ocean) === */
+      --color-accent-50: #f0fdfa;
+      --color-accent-100: #ccfbf1;
+      --color-accent-200: #99f6e4;
+      --color-accent-300: #5eead4;
+      --color-accent-400: #2dd4bf;
+      --color-accent-500: #14b8a6;
+      --color-accent-600: #0d9488;
+      --color-accent-700: #0f766e;
+      --color-accent-800: #115e59;
+      --color-accent-900: #134e4a;
+
+      /* === NEUTRAL === */
+      --color-neutral-50: #fafafa;
+      --color-neutral-100: #f5f5f5;
+      --color-neutral-200: #e5e5e5;
+      --color-neutral-300: #d4d4d4;
+      --color-neutral-400: #a3a3a3;
+      --color-neutral-500: #737373;
+      --color-neutral-600: #525252;
+      --color-neutral-700: #404040;
+      --color-neutral-800: #262626;
+      --color-neutral-900: #171717;
+    }
+  </style>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Alpine.js CDN -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <style>
+    [x-cloak] { display: none !important; }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    .section-fade {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .section-fade.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="bg-white text-neutral-700 antialiased">
+
+  <!-- ========== DISCLAIMER TOPBAR ========== -->
+  <div x-show="showTopbar" x-cloak
+    class="bg-neutral-900 text-white text-center text-xs sm:text-sm py-2 px-4 relative z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
+      <i class="fa-solid fa-circle-info text-accent-400"></i>
+      <span>
+        <strong>Disclaimer:</strong> This is a design draft proposal created based on the development team's analysis —
+        Powered by <a href="https://nokensoft.com" target="_blank" rel="noopener" class="underline text-accent-300 hover:text-accent-200 transition">Nokensoft.com</a>
+      </span>
+      <button @click="showTopbar = false" class="ml-3 text-neutral-400 hover:text-white transition" aria-label="Close topbar">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ========== DISCLAIMER MODAL ========== -->
+  <div x-show="showModal" x-cloak x-transition.opacity
+    class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4">
+    <div @click.outside="showModal = false" x-transition
+      class="bg-white w-full max-w-lg shadow-md p-6 sm:p-8 relative">
+      <button @click="showModal = false"
+        class="absolute top-4 right-4 text-neutral-400 hover:text-neutral-700 transition text-xl"
+        aria-label="Close modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="text-center">
+        <div class="w-14 h-14 bg-accent-100 flex items-center justify-center mx-auto mb-4">
+          <i class="fa-solid fa-file-lines text-accent-600 text-2xl"></i>
+        </div>
+        <h2 class="text-xl font-bold text-neutral-900 mb-2">Disclaimer</h2>
+        <p class="text-neutral-600 mb-4 leading-relaxed">
+          This website is a <strong>design draft proposal</strong> created based on the development team's analysis.
+          All content, layout, and visual elements are conceptual and can be customized to meet the client's needs.
+        </p>
+        <p class="text-sm text-neutral-400 mb-6">
+          Powered by <a href="https://nokensoft.com" target="_blank" rel="noopener" class="text-accent-500 underline hover:text-accent-700 transition">Nokensoft.com</a>
+        </p>
+        <button @click="showModal = false"
+          class="bg-primary-600 text-white px-8 py-2.5 font-semibold hover:bg-primary-700 transition shadow-md">
+          I Understand
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== HEADER & NAVIGATION ========== -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur shadow-md">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 lg:h-18">
+        <!-- Logo (centered on mobile) -->
+        <div class="flex-1 lg:flex-none flex justify-center lg:justify-start">
+          <a href="#home" class="flex items-center gap-2">
+            <img src="./logo.svg" alt="Wondiwoi Tour Logo" class="w-8 h-8">
+            <span class="font-bold text-lg text-neutral-900 tracking-tight">Wondiwoi Tour</span>
+          </a>
+        </div>
+
+        <!-- Spacer kiri mobile untuk centering -->
+        <div class="w-10 lg:hidden order-first"></div>
+
+        <!-- Menu Hamburger (kanan mobile) -->
+        <button @click="mobileMenu = !mobileMenu"
+          class="lg:hidden text-neutral-700 hover:text-primary-600 transition order-last"
+          aria-label="Toggle menu">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+
+        <!-- Desktop Nav -->
+        <div class="hidden lg:flex items-center gap-8">
+          <template x-for="item in navItems" :key="item.href">
+            <a :href="item.href" x-text="item.label"
+              class="text-sm font-medium text-neutral-600 hover:text-primary-600 transition"></a>
+          </template>
+          <a href="#contact"
+            class="bg-primary-600 text-white text-sm font-semibold px-5 py-2 hover:bg-primary-700 transition shadow-md">
+            Contact Us
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile Nav -->
+      <div x-show="mobileMenu" x-cloak x-transition
+        class="lg:hidden pb-4 border-t border-neutral-100">
+        <div class="flex flex-col gap-1 pt-3">
+          <template x-for="item in navItems" :key="item.href">
+            <a :href="item.href" x-text="item.label" @click="mobileMenu = false"
+              class="block px-3 py-2 text-sm text-neutral-600 hover:bg-primary-50 hover:text-primary-700 transition"></a>
+          </template>
+          <a href="#contact" @click="mobileMenu = false"
+            class="mt-2 block text-center bg-primary-600 text-white text-sm font-semibold px-5 py-2.5 hover:bg-primary-700 transition">
+            Contact Us
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <img src="./img/banner-5.png" alt="Wondiwoi Papua Landscape"
+        class="absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="relative z-10 text-center text-white px-4 max-w-3xl mx-auto">
+        <p class="text-accent-300 font-semibold uppercase tracking-widest text-sm mb-4">Papua — Indonesia</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+          Explore the Beauty of<br>Wondiwoi
+        </h1>
+        <p class="text-lg sm:text-xl text-white/85 mb-8 leading-relaxed max-w-2xl mx-auto">
+          Authentic adventure experiences amidst tropical rainforests, rich biodiversity, and untouched indigenous culture of Papua.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="#destinations"
+            class="bg-white text-primary-700 font-semibold px-8 py-3 hover:bg-primary-50 transition shadow-md">
+            View Destinations
+          </a>
+          <a href="#contact"
+            class="border-2 border-white text-white font-semibold px-8 py-3 hover:bg-white/10 transition">
+            Contact Us
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-20 bg-white section-fade">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p class="text-primary-600 font-semibold uppercase tracking-widest text-sm mb-2">About Us</p>
+            <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 mb-6">
+              Papua Has Always Captivated Explorers
+            </h2>
+            <p class="text-neutral-600 leading-relaxed mb-4">
+              Papua has always captivated nature explorers with its pristine natural beauty and authentic cultural diversity. Among many destinations, Wondiwoi offers a unique experience for those who wish to connect directly with the wild and understand authentic local culture.
+            </p>
+            <p class="text-neutral-600 leading-relaxed mb-6">
+              The beauty of Wondiwoi can only be reached by those who dare to explore remote places. As an exclusive destination, Wondiwoi provides a profound experience for true adventurers seeking more than just an ordinary holiday.
+            </p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-primary-50 p-4 shadow-md">
+                <div class="text-2xl font-bold text-primary-700">13+</div>
+                <div class="text-sm text-neutral-500">Tour Packages</div>
+              </div>
+              <div class="bg-accent-50 p-4 shadow-md">
+                <div class="text-2xl font-bold text-accent-700">100%</div>
+                <div class="text-sm text-neutral-500">Authentic Papua</div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <img src="./img/banner-4.png" alt="Alam Papua"
+              class="w-full h-48 object-cover shadow-md">
+            <img src="./img/banner-3.png" alt="Budaya Papua"
+              class="w-full h-48 object-cover shadow-md mt-8">
+            <img src="./img/banner-1.png" alt="Laut Papua"
+              class="w-full h-48 object-cover shadow-md">
+            <img src="./img/banner-2.png" alt="Satwa Papua"
+              class="w-full h-48 object-cover shadow-md mt-8">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESTINATIONS -->
+    <section id="destinations" class="py-20 bg-neutral-50 section-fade">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14">
+          <p class="text-primary-600 font-semibold uppercase tracking-widest text-sm mb-2">Destinations</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
+            Activities & Attractions
+          </h2>
+          <p class="text-neutral-500 max-w-2xl mx-auto">
+            A variety of authentic experiences await you in Wondiwoi — from wild nature adventures to profound cultural encounters.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <article class="bg-white shadow-md overflow-hidden group hover:shadow-lg transition">
+            <div class="relative overflow-hidden">
+              <img src="./img/banner-5.png" alt="Wildlife Exploration"
+                class="w-full h-52 object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-3 left-3 bg-primary-600 text-white text-xs font-semibold px-3 py-1">Nature</div>
+            </div>
+            <div class="p-5">
+              <h3 class="font-bold text-neutral-900 mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-tree text-primary-500"></i> Wildlife Exploration
+              </h3>
+              <p class="text-sm text-neutral-600 leading-relaxed">
+                Challenging hiking trails through dense forests, stunning cliffs, and deep valleys hiding untouched beauty.
+              </p>
+            </div>
+          </article>
+
+          <article class="bg-white shadow-md overflow-hidden group hover:shadow-lg transition">
+            <div class="relative overflow-hidden">
+              <img src="./img/banner-1.png" alt="Endemic Bird Watching"
+                class="w-full h-52 object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-3 left-3 bg-primary-600 text-white text-xs font-semibold px-3 py-1">Fauna</div>
+            </div>
+            <div class="p-5">
+              <h3 class="font-bold text-neutral-900 mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-dove text-primary-500"></i> Endemic Bird Watching
+              </h3>
+              <p class="text-sm text-neutral-600 leading-relaxed">
+                Witness the iconic birds of paradise and other exotic species in their natural habitat found nowhere else on Earth.
+              </p>
+            </div>
+          </article>
+
+          <article class="bg-white shadow-md overflow-hidden group hover:shadow-lg transition">
+            <div class="relative overflow-hidden">
+              <img src="./img/banner-2.png" alt="Wondiwoi Tree Kangaroo"
+                class="w-full h-52 object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-3 left-3 bg-accent-600 text-white text-xs font-semibold px-3 py-1">Endemic</div>
+            </div>
+            <div class="p-5">
+              <h3 class="font-bold text-neutral-900 mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-paw text-accent-500"></i> Wondiwoi Tree Kangaroo
+              </h3>
+              <p class="text-sm text-neutral-600 leading-relaxed">
+                Encounter the Wondiwoi Tree Kangaroo, one of the rarest endemic species found only in this region.
+              </p>
+            </div>
+          </article>
+
+          <article class="bg-white shadow-md overflow-hidden group hover:shadow-lg transition">
+            <div class="relative overflow-hidden">
+              <img src="./img/banner-4.png" alt="Ocean Adventure"
+                class="w-full h-52 object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-3 left-3 bg-accent-600 text-white text-xs font-semibold px-3 py-1">Ocean</div>
+            </div>
+            <div class="p-5">
+              <h3 class="font-bold text-neutral-900 mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-water text-accent-500"></i> Ocean Adventure
+              </h3>
+              <p class="text-sm text-neutral-600 leading-relaxed">
+                Dive and snorkel in waters rich with coral reefs and diverse, colorful marine life.
+              </p>
+            </div>
+          </article>
+
+          <article class="bg-white shadow-md overflow-hidden group hover:shadow-lg transition">
+            <div class="relative overflow-hidden">
+              <img src="./img/banner-1.png" alt="Beaches & Islands"
+                class="w-full h-52 object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-3 left-3 bg-primary-600 text-white text-xs font-semibold px-3 py-1">Beach</div>
+            </div>
+            <div class="p-5">
+              <h3 class="font-bold text-neutral-900 mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-umbrella-beach text-primary-500"></i> Exclusive Beaches & Islands
+              </h3>
+              <p class="text-sm text-neutral-600 leading-relaxed">
+                Serene white sand beaches with crystal-clear waters, perfect for snorkeling and enjoying an exclusive atmosphere.
+              </p>
+            </div>
+          </article>
+
+          <article class="bg-white shadow-md overflow-hidden group hover:shadow-lg transition">
+            <div class="relative overflow-hidden">
+              <img src="./img/banner-2.png" alt="Hidden Waterfalls"
+                class="w-full h-52 object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-3 left-3 bg-accent-600 text-white text-xs font-semibold px-3 py-1">Nature</div>
+            </div>
+            <div class="p-5">
+              <h3 class="font-bold text-neutral-900 mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-droplet text-accent-500"></i> Hidden Waterfalls
+              </h3>
+              <p class="text-sm text-neutral-600 leading-relaxed">
+                Natural waterfalls deep in the tropical forest — a perfect place to rest and experience true serenity.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CULTURE & HISTORY -->
+    <section id="culture" class="py-20 bg-white section-fade">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14">
+          <p class="text-accent-600 font-semibold uppercase tracking-widest text-sm mb-2">Culture & History</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
+            Papua's Cultural Heritage
+          </h2>
+          <p class="text-neutral-500 max-w-2xl mx-auto">
+            More than just nature, Wondiwoi holds invaluable cultural heritage, history, and local wisdom.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-neutral-50 p-6 shadow-md hover:shadow-lg transition text-center">
+            <div class="w-14 h-14 bg-accent-100 flex items-center justify-center mx-auto mb-4">
+              <i class="fa-solid fa-scroll text-accent-600 text-xl"></i>
+            </div>
+            <h3 class="font-bold text-neutral-900 mb-2">Papua History</h3>
+            <p class="text-sm text-neutral-600 leading-relaxed">
+              From colonial-era relics to ancestral traditions still alive within local communities.
+            </p>
+          </div>
+
+          <div class="bg-neutral-50 p-6 shadow-md hover:shadow-lg transition text-center">
+            <div class="w-14 h-14 bg-primary-100 flex items-center justify-center mx-auto mb-4">
+              <i class="fa-solid fa-hands-praying text-primary-600 text-xl"></i>
+            </div>
+            <h3 class="font-bold text-neutral-900 mb-2">Sacred Rituals</h3>
+            <p class="text-sm text-neutral-600 leading-relaxed">
+              Sacred rituals of local tribes with rich symbolism, reflecting beliefs and wisdom passed through generations.
+            </p>
+          </div>
+
+          <div class="bg-neutral-50 p-6 shadow-md hover:shadow-lg transition text-center">
+            <div class="w-14 h-14 bg-accent-100 flex items-center justify-center mx-auto mb-4">
+              <i class="fa-solid fa-feather text-accent-600 text-xl"></i>
+            </div>
+            <h3 class="font-bold text-neutral-900 mb-2">Indigenous Culture</h3>
+            <p class="text-sm text-neutral-600 leading-relaxed">
+              Interact with local communities who live with rich traditions and hospitality passed through generations.
+            </p>
+          </div>
+
+          <div class="bg-neutral-50 p-6 shadow-md hover:shadow-lg transition text-center">
+            <div class="w-14 h-14 bg-primary-100 flex items-center justify-center mx-auto mb-4">
+              <i class="fa-solid fa-people-group text-primary-600 text-xl"></i>
+            </div>
+            <h3 class="font-bold text-neutral-900 mb-2">Remote Tribes</h3>
+            <p class="text-sm text-neutral-600 leading-relaxed">
+              A rare opportunity to meet tribes still living in harmony with nature deep in the Papuan forests.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHIMBREL / WILDLIFE HIGHLIGHT -->
+    <section id="wildlife" class="py-20 bg-neutral-50 section-fade">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <img src="./img/banner-3.png" alt="Whimbrel Bird"
+              class="w-full h-auto shadow-md">
+          </div>
+          <div>
+            <p class="text-accent-600 font-semibold uppercase tracking-widest text-sm mb-2">Wildlife Spotlight</p>
+            <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
+              Whimbrel Bird
+            </h2>
+            <p class="text-sm text-neutral-500 italic mb-4">Numenius phaeopus</p>
+            <p class="text-neutral-600 leading-relaxed mb-4">
+              A migratory bird that makes an extraordinary journey from Siberia to Wondama Bay, West Papua. Each year it travels thousands of kilometers seeking warm tropical habitats in Indonesia.
+            </p>
+            <p class="text-neutral-600 leading-relaxed mb-6">
+              Distinguished by its long, downward-curving bill, measuring 37–45 cm. In Wondama Bay, they are found on beaches, estuaries, and mudflats at low tide, foraging for small crabs and invertebrates.
+            </p>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="text-center p-3 bg-white shadow-md">
+                <div class="text-xl font-bold text-accent-700">37-45</div>
+                <div class="text-xs text-neutral-500">cm length</div>
+              </div>
+              <div class="text-center p-3 bg-white shadow-md">
+                <div class="text-xl font-bold text-accent-700">1000+</div>
+                <div class="text-xs text-neutral-500">km migration</div>
+              </div>
+              <div class="text-center p-3 bg-white shadow-md">
+                <div class="text-xl font-bold text-accent-700">Siberia</div>
+                <div class="text-xs text-neutral-500">origin</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOUR PACKAGES -->
+    <section id="packages" class="py-20 bg-white section-fade">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14">
+          <p class="text-primary-600 font-semibold uppercase tracking-widest text-sm mb-2">Tour Packages</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
+            Curated Adventures
+          </h2>
+          <p class="text-neutral-500 max-w-2xl mx-auto">
+            Choose from our carefully crafted tour packages designed to showcase the best of Wondama Bay and its surroundings.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Package 1 -->
+          <article class="bg-neutral-50 shadow-md overflow-hidden group hover:shadow-lg transition flex flex-col">
+            <div class="relative overflow-hidden">
+              <img src="./img/banner-1.png" alt="Purup Island Paradise"
+                class="w-full h-48 object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-3 left-3 bg-accent-600 text-white text-xs font-semibold px-3 py-1">Island</div>
+            </div>
+            <div class="p-5 flex flex-col flex-1">
+              <h3 class="font-bold text-neutral-900 mb-2">Purup Island Paradise</h3>
+              <p class="text-sm text-neutral-600 leading-relaxed mb-4 flex-1">
+                Discover paradise at Purup Island in Cendrawasih Bay National Park — home to 500+ coral species, sea turtles, whale sharks, and some of the richest marine biodiversity ever recorded on Earth.
+              </p>
+              <a href="https://wa.me/6281248931154?text=Hi%20Wondiwoi%20Tour!%20I'm%20interested%20in%20the%20Purup%20Island%20Paradise%20package" target="_blank" rel="noopener"
+                class="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-800 transition">
+                <i class="fa-brands fa-whatsapp"></i> Inquire Now
+              </a>
+            </div>
+          </article>
+
+          <!-- Package 2 -->
+          <article class="bg-neutral-50 shadow-md overflow-hidden group hover:shadow-lg transition flex flex-col">
+            <div class="relative overflow-hidden">
+              <img src="./img/banner-2.png" alt="Duairi Bay Nature Explorer"
+                class="w-full h-48 object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-3 left-3 bg-primary-600 text-white text-xs font-semibold px-3 py-1">Nature</div>
+            </div>
+            <div class="p-5 flex flex-col flex-1">
+              <h3 class="font-bold text-neutral-900 mb-2">Duairi Bay Nature Explorer</h3>
+              <p class="text-sm text-neutral-600 leading-relaxed mb-4 flex-1">
+                Explore Aisandami village with its three-tiered Mambi Waterfall, bird of paradise watching, mangrove trekking, WWII wreck snorkeling, and traditional sago processing demonstrations.
+              </p>
+              <a href="https://wa.me/6281248931154?text=Hi%20Wondiwoi%20Tour!%20I'm%20interested%20in%20the%20Duairi%20Bay%20Nature%20Explorer%20package" target="_blank" rel="noopener"
+                class="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-800 transition">
+                <i class="fa-brands fa-whatsapp"></i> Inquire Now
+              </a>
+            </div>
+          </article>
+
+          <!-- Package 3 -->
+          <article class="bg-neutral-50 shadow-md overflow-hidden group hover:shadow-lg transition flex flex-col">
+            <div class="relative overflow-hidden">
+              <img src="./img/banner-3.png" alt="Roon Island Cultural Tour"
+                class="w-full h-48 object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-3 left-3 bg-accent-600 text-white text-xs font-semibold px-3 py-1">Culture</div>
+            </div>
+            <div class="p-5 flex flex-col flex-1">
+              <h3 class="font-bold text-neutral-900 mb-2">Roon Island Cultural Tour</h3>
+              <p class="text-sm text-neutral-600 leading-relaxed mb-4 flex-1">
+                Visit the iconic Old Church with its 1898 Bible, experience the Bemamun Soren war dance, explore sago processing, local handicrafts, and traditional fishery systems.
+              </p>
+              <a href="https://wa.me/6281248931154?text=Hi%20Wondiwoi%20Tour!%20I'm%20interested%20in%20the%20Roon%20Island%20Cultural%20Tour%20package" target="_blank" rel="noopener"
+                class="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-800 transition">
+                <i class="fa-brands fa-whatsapp"></i> Inquire Now
+              </a>
+            </div>
+          </article>
+
+          <!-- Package 4 -->
+          <article class="bg-neutral-50 shadow-md overflow-hidden group hover:shadow-lg transition flex flex-col">
+            <div class="relative overflow-hidden">
+              <img src="./img/banner-4.png" alt="Wondama Bay Complete Package"
+                class="w-full h-48 object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-3 left-3 bg-primary-600 text-white text-xs font-semibold px-3 py-1">Complete</div>
+            </div>
+            <div class="p-5 flex flex-col flex-1">
+              <h3 class="font-bold text-neutral-900 mb-2">Wondama Bay Complete Package</h3>
+              <p class="text-sm text-neutral-600 leading-relaxed mb-4 flex-1">
+                The ultimate multi-day adventure covering Auri Archipelago, birding in Wandamen, Rumberpon Island, wildlife watching in Wondiwoi Mountains, and snorkeling across Cendrawasih Bay.
+              </p>
+              <a href="https://wa.me/6281248931154?text=Hi%20Wondiwoi%20Tour!%20I'm%20interested%20in%20the%20Wondama%20Bay%20Complete%20Package" target="_blank" rel="noopener"
+                class="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-800 transition">
+                <i class="fa-brands fa-whatsapp"></i> Inquire Now
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- GALLERY -->
+    <section id="gallery" class="py-20 bg-neutral-50 section-fade">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14">
+          <p class="text-accent-600 font-semibold uppercase tracking-widest text-sm mb-2">Gallery</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
+            Portraits of Wondiwoi's Beauty
+          </h2>
+          <p class="text-neutral-500 max-w-2xl mx-auto">
+            Every corner of Wondiwoi is a portrait of pristine natural beauty — the perfect backdrop for photography and filmmaking.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div class="col-span-2 row-span-2">
+            <img src="./img/banner-2.png" alt="Galeri Wondiwoi"
+              class="w-full h-full object-cover shadow-md hover:opacity-90 transition">
+          </div>
+          <div>
+            <img src="./img/banner-1.png" alt="Galeri Wondiwoi"
+              class="w-full h-full object-cover shadow-md hover:opacity-90 transition">
+          </div>
+          <div>
+            <img src="./img/banner-3.png" alt="Galeri Wondiwoi"
+              class="w-full h-full object-cover shadow-md hover:opacity-90 transition">
+          </div>
+          <div>
+            <img src="./img/banner-4.png" alt="Galeri Wondiwoi"
+              class="w-full h-full object-cover shadow-md hover:opacity-90 transition">
+          </div>
+          <div>
+            <img src="./img/banner-6.png" alt="Galeri Wondiwoi"
+              class="w-full h-full object-cover shadow-md hover:opacity-90 transition">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY WONDIWOI -->
+    <section class="py-20 bg-white section-fade">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14">
+          <p class="text-primary-600 font-semibold uppercase tracking-widest text-sm mb-2">Experience</p>
+          <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
+            Why Wondiwoi?
+          </h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-primary-100 flex items-center justify-center">
+              <i class="fa-solid fa-leaf text-primary-600"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-neutral-900 mb-1">True Tranquility</h3>
+              <p class="text-sm text-neutral-600 leading-relaxed">
+                Far from the city bustle, fresh air and green landscapes provide a mind and body rejuvenating experience.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-accent-100 flex items-center justify-center">
+              <i class="fa-solid fa-compass text-accent-600"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-neutral-900 mb-1">Exclusive & Remote</h3>
+              <p class="text-sm text-neutral-600 leading-relaxed">
+                A destination reachable only by true explorers — every step is a new discovery.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-primary-100 flex items-center justify-center">
+              <i class="fa-solid fa-camera text-primary-600"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-neutral-900 mb-1">Photography & Film</h3>
+              <p class="text-sm text-neutral-600 leading-relaxed">
+                Extraordinary backdrops from dense forests to serene beaches, perfect for capturing rare moments.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-accent-100 flex items-center justify-center">
+              <i class="fa-solid fa-globe text-accent-600"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-neutral-900 mb-1">Conservation</h3>
+              <p class="text-sm text-neutral-600 leading-relaxed">
+                Contribute to preserving ecosystem balance and sustaining wildlife populations.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-primary-100 flex items-center justify-center">
+              <i class="fa-solid fa-users text-primary-600"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-neutral-900 mb-1">Sustainable Ecotourism</h3>
+              <p class="text-sm text-neutral-600 leading-relaxed">
+                Local communities are actively involved in monitoring and tourism, providing economic and ecological benefits.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 bg-accent-100 flex items-center justify-center">
+              <i class="fa-solid fa-heart text-accent-600"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-neutral-900 mb-1">Authentic Experience</h3>
+              <p class="text-sm text-neutral-600 leading-relaxed">
+                A direct connection with nature and local culture largely untouched by the outside world.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-20 bg-neutral-50 section-fade">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12">
+          <div>
+            <p class="text-primary-600 font-semibold uppercase tracking-widest text-sm mb-2">Contact</p>
+            <h2 class="text-3xl sm:text-4xl font-bold text-neutral-900 mb-4">
+              Ready for Adventure?
+            </h2>
+            <p class="text-neutral-600 leading-relaxed mb-8">
+              Get in touch with us for more information about tour packages, departure schedules, and preparation for your Wondiwoi adventure.
+            </p>
+
+            <div class="space-y-4">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-primary-100 flex items-center justify-center flex-shrink-0">
+                  <i class="fa-brands fa-whatsapp text-primary-600 text-xl"></i>
+                </div>
+                <div>
+                  <div class="text-sm text-neutral-500">WhatsApp</div>
+                  <a href="https://wa.me/6281248931154" target="_blank" rel="noopener"
+                    class="font-semibold text-neutral-900 hover:text-primary-600 transition">
+                    +62 812-4893-1154
+                  </a>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-accent-100 flex items-center justify-center flex-shrink-0">
+                  <i class="fa-solid fa-location-dot text-accent-600 text-xl"></i>
+                </div>
+                <div>
+                  <div class="text-sm text-neutral-500">Location</div>
+                  <span class="font-semibold text-neutral-900">Wondiwoi, Wondama Bay, West Papua</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-primary-100 flex items-center justify-center flex-shrink-0">
+                  <i class="fa-solid fa-globe text-primary-600 text-xl"></i>
+                </div>
+                <div>
+                  <div class="text-sm text-neutral-500">Website</div>
+                  <a href="https://wondiwoitour.blogspot.com/" target="_blank" rel="noopener"
+                    class="font-semibold text-neutral-900 hover:text-primary-600 transition">
+                    wondiwoitour.blogspot.com
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <div class="bg-white p-6 sm:p-8 shadow-md">
+            <h3 class="font-bold text-neutral-900 text-lg mb-6">Send a Message</h3>
+            <form @submit.prevent="submitForm()" class="space-y-4">
+              <div>
+                <label for="nama" class="block text-sm font-medium text-neutral-700 mb-1">Full Name</label>
+                <input type="text" id="nama" x-model="form.nama" required
+                  class="w-full border border-neutral-300 px-4 py-2.5 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition">
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium text-neutral-700 mb-1">Email</label>
+                <input type="email" id="email" x-model="form.email" required
+                  class="w-full border border-neutral-300 px-4 py-2.5 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition">
+              </div>
+              <div>
+                <label for="telepon" class="block text-sm font-medium text-neutral-700 mb-1">Phone Number</label>
+                <input type="tel" id="telepon" x-model="form.telepon"
+                  class="w-full border border-neutral-300 px-4 py-2.5 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition">
+              </div>
+              <div>
+                <label for="pesan" class="block text-sm font-medium text-neutral-700 mb-1">Message</label>
+                <textarea id="pesan" x-model="form.pesan" rows="4" required
+                  class="w-full border border-neutral-300 px-4 py-2.5 text-sm focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition resize-none"></textarea>
+              </div>
+              <button type="submit"
+                class="w-full bg-primary-600 text-white font-semibold py-3 hover:bg-primary-700 transition shadow-md">
+                <i class="fa-solid fa-paper-plane mr-2"></i> Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-neutral-900 text-neutral-400 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <!-- Brand -->
+        <div class="lg:col-span-2">
+          <div class="flex items-center gap-2 mb-4">
+            <img src="./logo.svg" alt="Wondiwoi Tour Logo" class="w-8 h-8">
+            <span class="font-bold text-lg text-white">Wondiwoi Tour</span>
+          </div>
+          <p class="text-sm leading-relaxed mb-4 max-w-md">
+            Authentic adventure experiences amidst the untouched natural beauty of Papua. Explore tropical rainforests, rich biodiversity, and indigenous culture with us.
+          </p>
+          <div class="flex gap-3">
+            <a href="#" class="w-9 h-9 bg-neutral-800 flex items-center justify-center hover:bg-primary-600 transition text-sm">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="#" class="w-9 h-9 bg-neutral-800 flex items-center justify-center hover:bg-primary-600 transition text-sm">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="#" class="w-9 h-9 bg-neutral-800 flex items-center justify-center hover:bg-primary-600 transition text-sm">
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+            <a href="https://wa.me/6281248931154" target="_blank" rel="noopener"
+              class="w-9 h-9 bg-neutral-800 flex items-center justify-center hover:bg-primary-600 transition text-sm">
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div>
+          <h4 class="font-semibold text-white mb-4">Navigation</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#home" class="hover:text-primary-400 transition">Home</a></li>
+            <li><a href="#about" class="hover:text-primary-400 transition">About</a></li>
+            <li><a href="#destinations" class="hover:text-primary-400 transition">Destinations</a></li>
+            <li><a href="#packages" class="hover:text-primary-400 transition">Packages</a></li>
+            <li><a href="#gallery" class="hover:text-primary-400 transition">Gallery</a></li>
+            <li><a href="#contact" class="hover:text-primary-400 transition">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="font-semibold text-white mb-4">Contact</h4>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-center gap-2">
+              <i class="fa-brands fa-whatsapp text-primary-500"></i>
+              <span>+62 812-4893-1154</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-location-dot text-primary-500 mt-0.5"></i>
+              <span>Teluk Wondama, Papua Barat, Indonesia</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-neutral-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+        <p>&copy; 2026 Wondiwoi Tour. All rights reserved.</p>
+        <p>
+          Design draft by
+          <a href="https://nokensoft.com" target="_blank" rel="noopener" class="text-accent-400 hover:text-accent-300 transition">Nokensoft.com</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== FLOATING ACTION BUTTONS ========== -->
+  <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end">
+    <!-- Back to Top -->
+    <a href="#home" class="group flex items-center gap-2" aria-label="Back to top">
+      <span class="hidden group-hover:flex items-center bg-neutral-800 text-white text-sm px-3 py-1.5 shadow-md whitespace-nowrap transition-all">
+        Back to Top
+      </span>
+      <span class="w-12 h-12 bg-neutral-700 text-white flex items-center justify-center shadow-lg hover:bg-neutral-900 transition-all">
+        <i class="fa-solid fa-arrow-up"></i>
+      </span>
+    </a>
+    <!-- Instagram -->
+    <a href="https://instagram.com/" target="_blank" rel="noopener" class="group flex items-center gap-2" aria-label="Instagram">
+      <span class="hidden group-hover:flex items-center bg-neutral-800 text-white text-sm px-3 py-1.5 shadow-md whitespace-nowrap transition-all">
+        Instagram
+      </span>
+      <span class="w-12 h-12 bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 text-white flex items-center justify-center shadow-lg hover:opacity-90 transition-all">
+        <i class="fa-brands fa-instagram text-xl"></i>
+      </span>
+    </a>
+    <!-- WhatsApp -->
+    <a href="https://wa.me/6281248931154" target="_blank" rel="noopener" class="group flex items-center gap-2" aria-label="Chat WhatsApp">
+      <span class="hidden group-hover:flex items-center bg-neutral-800 text-white text-sm px-3 py-1.5 shadow-md whitespace-nowrap transition-all">
+        WhatsApp
+      </span>
+      <span class="w-12 h-12 bg-green-500 text-white flex items-center justify-center shadow-lg hover:bg-green-600 transition-all">
+        <i class="fa-brands fa-whatsapp text-xl"></i>
+      </span>
+    </a>
+  </div>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    function app() {
+      return {
+        showTopbar: true,
+        showModal: true,
+        mobileMenu: false,
+        form: {
+          nama: '',
+          email: '',
+          telepon: '',
+          pesan: '',
+        },
+        navItems: [
+          { href: '#home', label: 'Home' },
+          { href: '#about', label: 'About' },
+          { href: '#destinations', label: 'Destinations' },
+          { href: '#culture', label: 'Culture' },
+          { href: '#packages', label: 'Packages' },
+          { href: '#gallery', label: 'Gallery' },
+          { href: '#contact', label: 'Contact' },
+        ],
+        submitForm() {
+          const waMessage = `Hello Wondiwoi Tour!%0A%0AName: ${this.form.nama}%0AEmail: ${this.form.email}%0APhone: ${this.form.telepon}%0AMessage: ${this.form.pesan}`;
+          window.open(`https://wa.me/6281248931154?text=${waMessage}`, '_blank');
+          this.form = { nama: '', email: '', telepon: '', pesan: '' };
+        },
+      };
+    }
+
+    // Intersection Observer for scroll animations
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document.querySelectorAll('.section-fade').forEach((el) => observer.observe(el));
+    });
+  </script>
+
+</body>
+
+</html>
